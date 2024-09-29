@@ -23,7 +23,7 @@ extension Int8: JavaValue {
 
   public static func jniMethodCall(
     in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  ) -> JNIMethodCall<JNIType> {
     environment.interface.CallByteMethodA
   }
 
@@ -35,9 +35,7 @@ extension Int8: JavaValue {
     environment.interface.SetByteField
   }
 
-  public static func jniStaticMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniStaticMethodCall(in environment: JNIEnvironment) -> JNIStaticMethodCall<JNIType> {
     environment.interface.CallStaticByteMethodA
   }
 
@@ -75,7 +73,7 @@ extension UInt16: JavaValue {
 
   public static func jniMethodCall(
     in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  ) -> JNIMethodCall<JNIType> {
     environment.interface.CallCharMethodA
   }
 
@@ -87,9 +85,7 @@ extension UInt16: JavaValue {
     environment.interface.SetCharField
   }
 
-  public static func jniStaticMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniStaticMethodCall(in environment: JNIEnvironment) -> JNIStaticMethodCall<JNIType> {
     environment.interface.CallStaticCharMethodA
   }
 
@@ -127,7 +123,7 @@ extension Int16: JavaValue {
 
   public static func jniMethodCall(
     in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  ) -> JNIMethodCall<JNIType> {
     environment.interface.CallShortMethodA
   }
 
@@ -139,9 +135,7 @@ extension Int16: JavaValue {
     environment.interface.SetShortField
   }
 
-  public static func jniStaticMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniStaticMethodCall(in environment: JNIEnvironment) -> JNIStaticMethodCall<JNIType> {
     environment.interface.CallStaticShortMethodA
   }
 
@@ -183,9 +177,7 @@ extension Int32: JavaValue {
 
   public static var javaType: JavaType { .int }
 
-  public static func jniMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniMethodCall(in environment: JNIEnvironment) -> JNIMethodCall<JNIType> {
     environment.interface.CallIntMethodA
   }
 
@@ -197,9 +189,7 @@ extension Int32: JavaValue {
     environment.interface.SetIntField
   }
 
-  public static func jniStaticMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniStaticMethodCall(in environment: JNIEnvironment) -> JNIStaticMethodCall<JNIType> {
     environment.interface.CallStaticIntMethodA
   }
 
@@ -255,9 +245,7 @@ extension Int64: JavaValue {
     environment.interface.SetLongField
   }
 
-  public static func jniStaticMethodCall(
-    in environment: JNIEnvironment
-  ) -> ((JNIEnvironment, jobject, jmethodID, UnsafePointer<jvalue>?) -> JNIType) {
+  public static func jniStaticMethodCall(in environment: JNIEnvironment) -> JNIStaticMethodCall<JNIType> {
     environment.interface.CallStaticLongMethodA
   }
 
