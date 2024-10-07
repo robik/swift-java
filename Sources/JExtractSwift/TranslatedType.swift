@@ -6,6 +6,7 @@
 // Licensed under Apache License v2.0
 //
 // See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of Swift.org project authors
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -222,6 +223,14 @@ public struct TranslatedType {
   /// Produce a Swift type name to reference this type.
   var swiftTypeName: String {
     originalSwiftType.trimmedDescription
+  }
+
+  /// Produce the "unqualified" Java type name.
+  var unqualifiedJavaTypeName: String {
+    switch javaType {
+    case .class(package: _, name: let name): name
+    default: javaType.description
+    }
   }
 }
 

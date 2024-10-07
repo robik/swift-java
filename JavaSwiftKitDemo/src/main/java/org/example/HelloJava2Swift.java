@@ -6,6 +6,7 @@
 // Licensed under Apache License v2.0
 //
 // See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of Swift.org project authors
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -60,9 +61,19 @@ public class HelloJava2Swift {
 
         JavaKitExample.globalTakeInt(1337);
 
-        MySwiftClass obj = MySwiftClass.init(2222, 7777);
+        MySwiftClass obj = new MySwiftClass(2222, 7777);
 
         SwiftKit.retain(obj.$memorySegment());
         System.out.println("[java] obj ref count = " + SwiftKit.retainCount(obj.$memorySegment()));
+
+        obj.voidMethod();
+        obj.takeIntMethod(42);
+
+        MemorySegment swiftType = SwiftKit.getTypeByMangledNameInEnvironment("SiSg");
+        System.out.println("Memory layout for Swift.Int?:");
+        System.out.println("  size = " + SwiftKit.sizeOfSwiftType(swiftType));
+        System.out.println("  stride = " + SwiftKit.strideOfSwiftType(swiftType));
+        System.out.println("  alignment = " + SwiftKit.alignmentOfSwiftType(swiftType));
+        System.out.println("  Java layout = " + SwiftKit.layoutOfSwiftType(swiftType));
     }
 }

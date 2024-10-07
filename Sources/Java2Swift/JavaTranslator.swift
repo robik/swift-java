@@ -6,6 +6,7 @@
 // Licensed under Apache License v2.0
 //
 // See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of Swift.org project authors
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -415,8 +416,9 @@ extension JavaTranslator {
 
     let throwsStr = javaMethod.throwsCheckedException ? "throws" : ""
 
+    let methodAttribute: AttributeSyntax = javaMethod.isStatic ? "@JavaStaticMethod" : "@JavaMethod";
     return """
-      @JavaMethod
+      \(methodAttribute)
       public func \(raw: javaMethod.getName())\(raw: genericParameterClause)(\(raw: parametersStr))\(raw: throwsStr)\(raw: resultTypeStr)\(raw: whereClause)
       """
   }

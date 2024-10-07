@@ -6,6 +6,7 @@
 // Licensed under Apache License v2.0
 //
 // See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of Swift.org project authors
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -47,6 +48,14 @@ public struct ImportedNominalType: ImportedDecl {
       cCompatibleJavaMemoryLayout: .heapObject,
       javaType: javaType
     )
+  }
+
+  /// The Java class name without the package.
+  public var javaClassName: String {
+    switch javaType {
+    case .class(package: _, name: let name): name
+    default: javaType.description
+    }
   }
 }
 
@@ -116,7 +125,7 @@ public struct ImportedFunc: ImportedDecl, CustomStringConvertible {
   /// this will contain that declaration's imported name.
   ///
   /// This is necessary when rendering accessor Java code we need the type that "self" is expecting to have.
-  var parentName: TranslatedType?
+  public var parentName: TranslatedType?
   public var hasParent: Bool { parentName != nil }
 
   /// This is a full name such as init(cap:name:).
@@ -152,7 +161,7 @@ public struct ImportedFunc: ImportedDecl, CustomStringConvertible {
       //
       // allocating initializer takes a Self.Type instead, but it's also a pointer
       switch selfVariant {
-      case nil:
+      case nil, .wrapper:
         break
 
       case .pointer:
@@ -174,10 +183,6 @@ public struct ImportedFunc: ImportedDecl, CustomStringConvertible {
             type: parentForSelf
           )
         )
-
-      case .wrapper:
-        let selfParam: FunctionParameterSyntax = "self$: \(raw: parentName.swiftTypeName)"
-        params.append(ImportedParam(param: selfParam, type: parentName))
       }
 
       // TODO: add any metadata for generics and other things we may need to add here

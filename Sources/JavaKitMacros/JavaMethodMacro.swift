@@ -6,6 +6,7 @@
 // Licensed under Apache License v2.0
 //
 // See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of Swift.org project authors
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -33,6 +34,7 @@ extension JavaMethodMacro: BodyMacro {
       fatalError("not a function")
     }
 
+    let isStatic = node.attributeName.trimmedDescription == "JavaStaticMethod"
     let funcName = funcDecl.name.text
     let params = funcDecl.signature.parameterClause.parameters
     let resultType: String =
@@ -53,7 +55,7 @@ extension JavaMethodMacro: BodyMacro {
       ? "try" : "try!"
 
     return [
-      "return \(raw: tryKeyword) dynamicJavaMethodCall(methodName: \(literal: funcName)\(raw: parametersAsArgs)\(raw: resultType))"
+      "return \(raw: tryKeyword) dynamicJava\(raw: isStatic ? "Static" : "")MethodCall(methodName: \(literal: funcName)\(raw: parametersAsArgs)\(raw: resultType))"
     ]
   }
 
